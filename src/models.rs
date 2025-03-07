@@ -118,7 +118,7 @@ fn rgb_to_ints(rgb: &RGB, opacity: Option<u8>) -> (u32, u32, i32) {
     (uint24, uint32, uint32 as i32)
 }
 
-fn color_from_hex_override(hex: &str, blueprint: &catppuccin::Color) -> Result<Color, Error> {
+fn color_from_hex_override(hex: &str, blueprint: &evergarden::Color) -> Result<Color, Error> {
     let i = u32::from_str_radix(hex, 16)?;
     let rgb = RGB {
         r: ((i >> 16) & 0xFF) as u8,
@@ -147,7 +147,7 @@ fn color_from_hex_override(hex: &str, blueprint: &catppuccin::Color) -> Result<C
     })
 }
 
-fn color_from_catppuccin(color: &catppuccin::Color) -> tera::Result<Color> {
+fn color_from_catppuccin(color: &evergarden::Color) -> tera::Result<Color> {
     let hex = format_hex!(color.rgb.r, color.rgb.g, color.rgb.b, 0xFF)?;
     let rgb: RGB = color.rgb.into();
     let (int24, uint32, sint32) = rgb_to_ints(&rgb, None);
@@ -182,13 +182,12 @@ pub fn build_palette(color_overrides: Option<&ColorOverrides>) -> Result<Palette
     // 2. "all" override
     // 3. flavor override
     let make_color =
-        |color: &catppuccin::Color, flavor_name: catppuccin::FlavorName| -> Result<Color, Error> {
+        |color: &evergarden::Color, flavor_name: evergarden::FlavorName| -> Result<Color, Error> {
             let flavor_override = color_overrides
                 .map(|co| match flavor_name {
-                    catppuccin::FlavorName::Latte => &co.latte,
-                    catppuccin::FlavorName::Frappe => &co.frappe,
-                    catppuccin::FlavorName::Macchiato => &co.macchiato,
-                    catppuccin::FlavorName::Mocha => &co.mocha,
+                    evergarden::FlavorName::Winter => &co.winter,
+                    evergarden::FlavorName::Fall => &co.fall,
+                    evergarden::FlavorName::Spring => &co.spring,
                 })
                 .and_then(|o| o.get(color.name.identifier()).cloned())
                 .map(|s| color_from_hex_override(&s, color))
@@ -205,7 +204,7 @@ pub fn build_palette(color_overrides: Option<&ColorOverrides>) -> Result<Palette
         };
 
     let mut flavors = IndexMap::new();
-    for flavor in &catppuccin::PALETTE {
+    for flavor in &evergarden::PALETTE {
         let mut colors = IndexMap::new();
         for color in flavor {
             colors.insert(
@@ -472,8 +471,8 @@ impl From<&Color> for css_colors::HSLA {
     }
 }
 
-impl From<catppuccin::Rgb> for RGB {
-    fn from(rgb: catppuccin::Rgb) -> Self {
+impl From<evergarden::Rgb> for RGB {
+    fn from(rgb: evergarden::Rgb) -> Self {
         Self {
             r: rgb.r,
             g: rgb.g,

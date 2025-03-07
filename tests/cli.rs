@@ -8,7 +8,7 @@ mod happy_path {
     fn test_single() {
         let mut cmd = Command::cargo_bin("whiskers").expect("binary exists");
         let assert = cmd
-            .args(["tests/fixtures/single/single.tera", "-f", "latte"])
+            .args(["tests/fixtures/single/single.tera", "-f", "fall"])
             .assert();
         assert
             .success()
@@ -33,7 +33,7 @@ mod happy_path {
             .args(["--dry-run", "tests/fixtures/multifile.tera"])
             .assert();
         assert.success().stdout(predicate::str::contains(
-            "catppuccin-macchiato-yellow-no-italics.ini",
+            "catppuccin-fall-yellow-no-italics.ini",
         ));
     }
 
@@ -42,7 +42,7 @@ mod happy_path {
     fn test_read_file() {
         let mut cmd = Command::cargo_bin("whiskers").expect("binary exists");
         let assert = cmd
-            .args(["tests/fixtures/read_file/read_file.tera", "-f", "latte"])
+            .args(["tests/fixtures/read_file/read_file.tera", "-f", "fall"])
             .assert();
         assert
             .success()
@@ -54,7 +54,7 @@ mod happy_path {
     fn test_formats() {
         let mut cmd = Command::cargo_bin("whiskers").expect("binary exists");
         let assert = cmd
-            .args(["tests/fixtures/formats.tera", "-f", "latte"])
+            .args(["tests/fixtures/formats.tera", "-f", "fall"])
             .assert();
         assert.success().stdout(
             predicate::str::contains("24-bit red: 13766457")
@@ -118,7 +118,7 @@ mod happy_path {
     fn test_custom_hex_format() {
         let mut cmd = Command::cargo_bin("whiskers").expect("binary exists");
         let assert = cmd
-            .args(["tests/fixtures/hexformat/custom.tera", "-f", "latte"])
+            .args(["tests/fixtures/hexformat/custom.tera", "-f", "fall"])
             .assert();
         assert
             .success()
@@ -153,7 +153,7 @@ mod sad_path {
     #[test]
     fn template_contains_invalid_syntax() {
         let mut cmd = Command::cargo_bin("whiskers").expect("binary exists");
-        cmd.arg("tests/fixtures/errors.tera").args(["-f", "mocha"]);
+        cmd.arg("tests/fixtures/errors.tera").args(["-f", "fall"]);
         cmd.assert()
             .failure()
             .stderr(predicate::str::contains("Error: Template is invalid"));

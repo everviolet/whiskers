@@ -75,19 +75,17 @@ enum Error {
 
 #[derive(Copy, Clone, Debug, clap::ValueEnum)]
 pub enum Flavor {
-    Latte,
-    Frappe,
-    Macchiato,
-    Mocha,
+    Winter,
+    Fall,
+    Spring,
 }
 
-impl From<Flavor> for catppuccin::FlavorName {
+impl From<Flavor> for evergarden::FlavorName {
     fn from(val: Flavor) -> Self {
         match val {
-            Flavor::Latte => Self::Latte,
-            Flavor::Frappe => Self::Frappe,
-            Flavor::Macchiato => Self::Macchiato,
-            Flavor::Mocha => Self::Mocha,
+            Flavor::Winter => Self::Winter,
+            Flavor::Fall => Self::Winter,
+            Flavor::Spring => Self::Winter,
         }
     }
 }
@@ -97,13 +95,11 @@ pub struct ColorOverrides {
     #[serde(default)]
     pub all: HashMap<String, String>,
     #[serde(default)]
-    pub latte: HashMap<String, String>,
+    pub winter: HashMap<String, String>,
     #[serde(default)]
-    pub frappe: HashMap<String, String>,
+    pub fall: HashMap<String, String>,
     #[serde(default)]
-    pub macchiato: HashMap<String, String>,
-    #[serde(default)]
-    pub mocha: HashMap<String, String>,
+    pub spring: HashMap<String, String>,
 }
 
 #[derive(Clone, Copy, Debug, clap::ValueEnum)]

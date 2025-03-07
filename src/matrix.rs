@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use catppuccin::FlavorName;
+use evergarden::FlavorName;
 
 pub type Matrix = HashMap<String, Vec<String>>;
 
@@ -50,7 +50,7 @@ fn magic_iterables(only_flavor: Option<FlavorName>) -> HashMap<&'static str, Vec
             "flavor",
             only_flavor.map_or_else(
                 || {
-                    catppuccin::PALETTE
+                    evergarden::PALETTE
                         .into_iter()
                         .map(|flavor| flavor.identifier().to_string())
                         .collect::<Vec<String>>()
@@ -63,8 +63,8 @@ fn magic_iterables(only_flavor: Option<FlavorName>) -> HashMap<&'static str, Vec
 }
 
 fn ctp_accents() -> Vec<String> {
-    catppuccin::PALETTE
-        .latte
+    evergarden::PALETTE
+        .fall
         .colors
         .iter()
         .filter(|c| c.accent)

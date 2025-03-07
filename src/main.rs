@@ -7,9 +7,9 @@ use std::{
 };
 
 use anyhow::{anyhow, Context as _};
-use catppuccin::FlavorName;
 use clap::Parser as _;
 use encoding_rs_io::DecodeReaderBytes;
+use evergarden::FlavorName;
 use itertools::Itertools;
 use whiskers::{
     cli::{Args, OutputFormat},
@@ -174,7 +174,7 @@ fn main() -> anyhow::Result<()> {
 
     ctx.insert("flavors", &palette.flavors);
     if let Some(flavor) = args.flavor {
-        let flavor: catppuccin::FlavorName = flavor.into();
+        let flavor: evergarden::FlavorName = flavor.into();
         let flavor = &palette.flavors[flavor.identifier()];
         ctx.insert("flavor", flavor);
 
@@ -341,7 +341,7 @@ fn list_flavors(format: OutputFormat) {
         }
     }
 
-    let flavors = catppuccin::PALETTE
+    let flavors = evergarden::PALETTE
         .all_flavors()
         .into_iter()
         .map(|f| FlavorInfo {
@@ -379,8 +379,8 @@ fn list_flavors(format: OutputFormat) {
 }
 
 fn list_accents(format: OutputFormat) {
-    let accents = catppuccin::PALETTE
-        .latte
+    let accents = evergarden::PALETTE
+        .fall
         .colors
         .all_colors()
         .into_iter()
@@ -413,7 +413,7 @@ fn list_accents(format: OutputFormat) {
             OutputFormat::Plain => {
                 accents
                     .into_iter()
-                    .map(catppuccin::Color::identifier)
+                    .map(evergarden::Color::identifier)
                     .join("\n")
             }
             // and finally for human-readable markdown, we list the names
@@ -556,7 +556,7 @@ fn render_multi_output(
             // `{% set flavor = flavors[flavor] %}`
             // at the top of every template.
             if key == "flavor" {
-                let flavor: catppuccin::FlavorName = value.parse()?;
+                let flavor: evergarden::FlavorName = value.parse()?;
                 let flavor = &palette.flavors[flavor.identifier()];
                 ctx.insert("flavor", flavor);
 
