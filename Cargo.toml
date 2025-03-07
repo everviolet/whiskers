@@ -1,12 +1,12 @@
 [package]
-name = "catppuccin-whiskers"
+name = "evergarden-whiskers"
 version = "2.5.1"
 authors = ["backwardspy <backwardspy@pigeon.life>"]
 edition = "2021"
 description = "😾 Soothing port creation tool for the high-spirited!"
 readme = "README.md"
-homepage = "https://github.com/catppuccin/whiskers/tree/main/whiskers"
-repository = "https://github.com/catppuccin/whiskers"
+homepage = "https://github.com/everviolet/whiskers/tree/main/whiskers"
+repository = "https://github.com/everviolet/whiskers"
 license = "MIT"
 
 [profile.release]
