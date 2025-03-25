@@ -74,6 +74,9 @@ struct AnsiColor {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    println!("cargo:rerun-if-changed=Cargo.lock");
+    println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-changed=src/palette.json");
     let out_dir = PathBuf::from(&env::var("OUT_DIR")?);
     let codegen_path = out_dir.join("generated_palette.rs");
     let mut code_writer = BufWriter::new(File::create(codegen_path)?);
@@ -145,14 +148,14 @@ fn palette_circle(filename: &str) -> String {
 }
 
 fn color_palette_circles(color_key: &str) -> String {
-    ["winter", "fall", "spring"]
+    ["winter", "fall", "spring", "summer"]
         .map(|n| palette_circle(format!("{n}_{color_key}").as_str()))
         .into_iter()
         .collect::<String>()
 }
 
 fn ansi_color_palette_circles(color_key: &str) -> String {
-    ["winter", "fall", "spring"]
+    ["winter", "fall", "spring", "summer"]
         .map(|n| palette_circle(format!("ansi/{n}_ansi_{color_key}").as_str()))
         .into_iter()
         .collect::<String>()

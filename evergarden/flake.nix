@@ -18,7 +18,7 @@
     {
       devShells = forAllSystems (pkgs: {
         default = pkgs.callPackage ./shell.nix {
-          evgLib = inputs.evergarden-nix.lib.evergarden;
+          evgLib = inputs.evergarden-nix.lib;
           riceLib = inputs.nix-rice.lib.nix-rice;
         };
       });

@@ -77,6 +77,8 @@ pub struct Palette {
     pub fall: Flavor,
     /// The lightest dark flavor.
     pub spring: Flavor,
+    /// The light flavor.
+    pub summer: Flavor,
 }
 
 /// Enum of all four flavors of Catppuccin. Can be used to index [`Palette`].
@@ -89,6 +91,8 @@ pub enum FlavorName {
     Fall,
     /// The lightest dark flavor.
     Spring,
+    /// The light flavor.
+    Summer,
 }
 
 /// An iterator over flavors in the palette.
@@ -195,8 +199,8 @@ pub struct AnsiColorPairsIterator<'a> {
 impl Palette {
     /// Get an array of the flavors in the palette.
     #[must_use]
-    pub const fn all_flavors(&self) -> [&Flavor; 3] {
-        [&self.winter, &self.fall, &self.spring]
+    pub const fn all_flavors(&self) -> [&Flavor; 4] {
+        [&self.winter, &self.fall, &self.spring, &self.summer]
     }
 
     /// Create an iterator over the flavors in the palette.
@@ -217,6 +221,7 @@ impl Index<FlavorName> for Palette {
             FlavorName::Winter => &self.winter,
             FlavorName::Fall => &self.fall,
             FlavorName::Spring => &self.spring,
+            FlavorName::Summer => &self.summer,
         }
     }
 }
@@ -232,6 +237,7 @@ impl Palette {
             FlavorName::Winter => &self.winter,
             FlavorName::Fall => &self.fall,
             FlavorName::Spring => &self.spring,
+            FlavorName::Summer => &self.summer,
         }
     }
 }
@@ -280,6 +286,7 @@ impl fmt::Display for FlavorName {
             Self::Winter => write!(f, "Winter"),
             Self::Fall => write!(f, "Fall"),
             Self::Spring => write!(f, "Spring"),
+            Self::Summer => write!(f, "Summer"),
         }
     }
 }
@@ -292,7 +299,7 @@ impl std::fmt::Display for ParseFlavorNameError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "invalid flavor identifier, expected one of: winter, fall, spring"
+            "invalid flavor identifier, expected one of: winter, fall, spring, summer"
         )
     }
 }
@@ -305,6 +312,7 @@ impl FromStr for FlavorName {
             "winter" => Ok(Self::Winter),
             "fall" => Ok(Self::Fall),
             "spring" => Ok(Self::Spring),
+            "summer" => Ok(Self::Summer),
             _ => Err(ParseFlavorNameError),
         }
     }
@@ -328,6 +336,7 @@ impl FlavorName {
             Self::Winter => "winter",
             Self::Fall => "fall",
             Self::Spring => "spring",
+            Self::Summer => "summer",
         }
     }
 }

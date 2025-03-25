@@ -78,6 +78,7 @@ pub enum Flavor {
     Winter,
     Fall,
     Spring,
+    Summer,
 }
 
 impl From<Flavor> for evergarden::FlavorName {
@@ -86,6 +87,7 @@ impl From<Flavor> for evergarden::FlavorName {
             Flavor::Winter => Self::Winter,
             Flavor::Fall => Self::Winter,
             Flavor::Spring => Self::Winter,
+            Flavor::Summer => Self::Winter,
         }
     }
 }
@@ -100,6 +102,8 @@ pub struct ColorOverrides {
     pub fall: HashMap<String, String>,
     #[serde(default)]
     pub spring: HashMap<String, String>,
+    #[serde(default)]
+    pub summer: HashMap<String, String>,
 }
 
 #[derive(Clone, Copy, Debug, clap::ValueEnum)]

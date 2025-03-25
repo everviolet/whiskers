@@ -188,6 +188,7 @@ pub fn build_palette(color_overrides: Option<&ColorOverrides>) -> Result<Palette
                     evergarden::FlavorName::Winter => &co.winter,
                     evergarden::FlavorName::Fall => &co.fall,
                     evergarden::FlavorName::Spring => &co.spring,
+                    evergarden::FlavorName::Summer => &co.summer,
                 })
                 .and_then(|o| o.get(color.name.identifier()).cloned())
                 .map(|s| color_from_hex_override(&s, color))

@@ -25,7 +25,7 @@ let
       name = variant;
       emoji = " ";
       order = 0;
-      dark = true;
+      dark = variant != "summer";
       colors = mapAttrs (
         colorn: colorv:
         let
