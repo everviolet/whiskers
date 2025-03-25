@@ -85,9 +85,9 @@ impl From<Flavor> for evergarden::FlavorName {
     fn from(val: Flavor) -> Self {
         match val {
             Flavor::Winter => Self::Winter,
-            Flavor::Fall => Self::Winter,
-            Flavor::Spring => Self::Winter,
-            Flavor::Summer => Self::Winter,
+            Flavor::Fall => Self::Fall,
+            Flavor::Spring => Self::Spring,
+            Flavor::Summer => Self::Summer,
         }
     }
 }
