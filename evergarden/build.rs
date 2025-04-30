@@ -310,7 +310,7 @@ fn make_flavor_colors_all_impl_tokens(sample_flavor: &Flavor) -> TokenStream {
         impl FlavorColors {
             /// Get an array of the colors in the flavor.
             #[must_use]
-            pub const fn all_colors(&self) -> [&Color; 21] {
+            pub const fn all_colors(&self) -> [&Color; 24] {
                 [
                     #(#items),*
                 ]
