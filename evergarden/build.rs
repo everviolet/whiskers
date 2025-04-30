@@ -279,6 +279,7 @@ fn make_flavor_ansi_color_pairs_struct_tokens(sample_flavor: &Flavor) -> TokenSt
     });
     quote! {
         /// All of the ANSI color pairs for a particular flavor of Catppuccin.
+        #[allow(non_snake_case)]
         #[derive(Clone, Copy, Debug, PartialEq)]
         #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
         pub struct FlavorAnsiColorPairs {
