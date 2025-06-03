@@ -52,36 +52,27 @@ let
         }
       ) vpalette;
       ansiColors =
+      let
+        createAnsiColor = ansiName: ansiColor:
+        let
+          inherit (ansiColor) name code;
+          color = evgLib.palette.${variant}.${name};
+          hex = "#${color}";
+          rgba = hexToRgba hex;
+          rgb = mapAttrs (_: floor) (removeAttrs rgba [ "a" ]);
+          hsl = removeAttrs (rgbaToHsla rgba) [ "a" ];
+        in
+        {
+          name = ansiName;
+          inherit hex rgb hsl code;
+        };
+      in
         mapAttrs
           (ansiName: ansiColor: {
             name = ansiName;
             order = 0;
-            normal =
-              let
-                color = evgLib.palette.${variant}.${ansiColor.normal.name};
-                hex = "#${color}";
-                rgba = hexToRgba hex;
-                rgb = mapAttrs (_: floor) (removeAttrs rgba [ "a" ]);
-                hsl = removeAttrs (rgbaToHsla rgba) [ "a" ];
-              in
-              {
-                name = ansiName;
-                inherit hex rgb hsl;
-                inherit (ansiColor.normal) code;
-              };
-            bright =
-              let
-                color = evgLib.palette.${variant}.${ansiColor.normal.name};
-                hex = "#${color}";
-                rgba = hexToRgba hex;
-                rgb = mapAttrs (_: floor) (removeAttrs rgba [ "a" ]);
-                hsl = removeAttrs (rgbaToHsla rgba) [ "a" ];
-              in
-              {
-                name = "Bright " + ansiName;
-                inherit hex rgb hsl;
-                inherit (ansiColor.bright) code;
-              };
+            normal = createAnsiColor ansiName ansiColor.normal;
+            bright = createAnsiColor ("Bright " + ansiName) ansiColor.bright;
           })
           {
             Black = {
