@@ -81,7 +81,7 @@ let
                 code = 0;
               };
               bright = {
-                name = "surface0";
+                name = "overlay1";
                 code = 8;
               };
             };
