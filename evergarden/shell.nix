@@ -12,10 +12,41 @@ let
     elem
     toJSON
     mapAttrs
+    listToAttrs
     removeAttrs
     ;
+  inherit (lib.lists) imap0;
   inherit (riceLib.color) rgbaToHsla hexToRgba;
   inherit (riceLib.float) floor;
+  accents = [
+    "red"
+    "orange"
+    "yellow"
+    "lime"
+    "green"
+    "aqua"
+    "skye"
+    "snow"
+    "blue"
+    "purple"
+    "pink"
+    "cherry"
+  ];
+  neutrals = [
+    "text"
+    "subtext1"
+    "subtext0"
+    "overlay2"
+    "overlay1"
+    "overlay0"
+    "surface2"
+    "surface1"
+    "surface0"
+    "base"
+    "mantle"
+    "crust"
+  ];
+  colornames = neutrals ++ accents;
 
   palette =
     {
@@ -26,9 +57,10 @@ let
       emoji = " ";
       order = 0;
       dark = variant != "summer";
-      colors = mapAttrs (
-        colorn: colorv:
+      colors = listToAttrs (imap0 (
+        order: colorn:
         let
+          colorv = vpalette.${colorn};
           hex = "#${colorv}";
           rgba = hexToRgba hex;
           rgb = mapAttrs (_: floor) (removeAttrs rgba [ "a" ]);
@@ -36,21 +68,14 @@ let
         in
         {
           name = colorn;
-          order = 0;
-          inherit hex rgb hsl;
-          accent = elem colorn [
-            "red"
-            "orange"
-            "yellow"
-            "green"
-            "aqua"
-            "skye"
-            "blue"
-            "purple"
-            "pink"
-          ];
+          value = {
+            name = colorn;
+            inherit order;
+            inherit hex rgb hsl;
+            accent = elem colorn accents;
+          };
         }
-      ) vpalette;
+      ) colornames);
       ansiColors =
       let
         createAnsiColor = ansiName: ansiColor:
