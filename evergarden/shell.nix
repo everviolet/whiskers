@@ -46,7 +46,7 @@ let
     "mantle"
     "crust"
   ];
-  colornames = neutrals ++ accents;
+  colornames = accents ++ neutrals;
 
   palette =
     {
