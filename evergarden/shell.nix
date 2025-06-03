@@ -16,8 +16,15 @@ let
     removeAttrs
     ;
   inherit (lib.lists) imap0;
+  inherit (lib.attrsets) getAttr;
   inherit (riceLib.color) rgbaToHsla hexToRgba;
   inherit (riceLib.float) floor;
+  variants = [
+    "winter"
+    "fall"
+    "spring"
+    "summer"
+  ];
   accents = [
     "red"
     "orange"
@@ -48,19 +55,20 @@ let
   ];
   colornames = accents ++ neutrals;
 
+  listMap = f: attrs: lst: listToAttrs (imap0 (i: name: { inherit name; value = f i name (getAttr name attrs); }) lst);
+
   palette =
     {
       version = "0.1.0";
     }
-    // mapAttrs (variant: vpalette: {
+    // listMap (order: variant: vpalette: {
       name = variant;
       emoji = " ";
-      order = 0;
+      inherit order;
       dark = variant != "summer";
-      colors = listToAttrs (imap0 (
-        order: colorn:
+      colors = listMap (
+        order: colorn: colorv:
         let
-          colorv = vpalette.${colorn};
           hex = "#${colorv}";
           rgba = hexToRgba hex;
           rgb = mapAttrs (_: floor) (removeAttrs rgba [ "a" ]);
@@ -68,14 +76,11 @@ let
         in
         {
           name = colorn;
-          value = {
-            name = colorn;
-            inherit order;
-            inherit hex rgb hsl;
-            accent = elem colorn accents;
-          };
+          inherit order;
+          inherit hex rgb hsl;
+          accent = elem colorn accents;
         }
-      ) colornames);
+      ) vpalette colornames;
       ansiColors =
       let
         createAnsiColor = ansiName: ansiColor:
@@ -92,10 +97,10 @@ let
           inherit hex rgb hsl code;
         };
       in
-        mapAttrs
-          (ansiName: ansiColor: {
+        listMap
+          (order: ansiName: ansiColor: {
             name = ansiName;
-            order = 0;
+            inherit order;
             normal = createAnsiColor ansiName ansiColor.normal;
             bright = createAnsiColor ("Bright " + ansiName) ansiColor.bright;
           })
@@ -180,8 +185,17 @@ let
                 code = 15;
               };
             };
-          };
-    }) (removeAttrs evgLib.palette [ "colors" ]);
+          } [
+            "Black"
+            "Red"
+            "Green"
+            "Yellow"
+            "Blue"
+            "Magenta"
+            "Cyan"
+            "White"
+          ];
+    }) (removeAttrs evgLib.palette [ "colors" ]) variants;
 
   generate-palette = writeShellApplication {
     name = "generate-palette";
