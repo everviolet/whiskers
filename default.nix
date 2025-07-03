@@ -13,12 +13,15 @@ rustPlatform.buildRustPackage {
         ./Cargo.toml
         ./Cargo.lock
         ./src
-        ./evergarden
       ]
     );
   };
 
   cargoLock.lockFile = ./Cargo.lock;
+
+  cargoLock.outputHashes = {
+    "evergarden-0.1.0" = "sha256-4vJ5kk66gu8inG13NzSqZYaPjXNu2r2tHMtNkQEoVO0=";
+  };
 
   meta = {
     inherit (toml) homepage description;
