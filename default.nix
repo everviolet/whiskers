@@ -3,7 +3,7 @@ let
   toml = (lib.importTOML ./Cargo.toml).package;
 in
 rustPlatform.buildRustPackage {
-  pname = "whiskers-evg";
+  pname = "whiskers-evergarden";
   inherit (toml) version;
 
   src = lib.fileset.toSource {
@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage {
     inherit (toml) homepage description;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ comfysage ];
-    mainPackage = "whiskers-evg";
+    mainPackage = "whiskers";
   };
 }
