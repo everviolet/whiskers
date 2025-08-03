@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   cargoLock.lockFile = ./Cargo.lock;
 
   cargoLock.outputHashes = {
-    "evergarden-0.1.0" = "sha256-4vJ5kk66gu8inG13NzSqZYaPjXNu2r2tHMtNkQEoVO0=";
+    "evergarden-0.1.0" = "sha256-+L6ac9/1gPAHH1N9o1Uj3JnN11ASCe/UQ5r1U872SDc=";
   };
 
   meta = {
