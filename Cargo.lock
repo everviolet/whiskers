@@ -388,7 +388,7 @@ dependencies = [
 [[package]]
 name = "evergarden"
 version = "0.1.0"
-source = "git+https://github.com/everviolet/rust#0b463a23051569a289d18d2ed4565510eb5bd087"
+source = "git+https://github.com/everviolet/rust#0200951113a448a8a520942cc5dadc523ad21edd"
 dependencies = [
  "css-colors",
  "itertools",
